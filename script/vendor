@@ -1,0 +1,47 @@
+#!/usr/bin/env python3
+"""Copy the integration from a Home Assistant checkout into custom_components.
+
+Usage: script/vendor <home-assistant checkout> [<git ref>]
+
+Checks out ref there (default: the version in the manifest), builds the English
+translations with core's own script, copies the integration in, and sets the
+manifest's version to the ref. Run it from the repository root.
+"""
+
+import json
+import pathlib
+import shutil
+import subprocess
+import sys
+
+ROOT = pathlib.Path(__file__).resolve().parent.parent
+(DOMAIN,) = [p.name for p in (ROOT / "custom_components").iterdir() if p.is_dir()]
+
+
+def main() -> None:
+    ha = pathlib.Path(sys.argv[1]).resolve()
+    manifest_path = ROOT / "custom_components" / DOMAIN / "manifest.json"
+    manifest = json.loads(manifest_path.read_text())
+    ref = sys.argv[2] if len(sys.argv) > 2 else manifest["version"]
+    subprocess.run(["git", "-C", str(ha), "checkout", "-q", ref], check=True)
+    subprocess.run(
+        [sys.executable, "-m", "script.translations", "develop", "--integration", DOMAIN],
+        cwd=ha,
+        check=True,
+    )
+    src = ha / "homeassistant" / "components" / DOMAIN
+    dest = ROOT / "custom_components" / DOMAIN
+    shutil.rmtree(dest)
+    shutil.copytree(src, dest, ignore=shutil.ignore_patterns("__pycache__"))
+    vendored = json.loads((dest / "manifest.json").read_text())
+    vendored["issue_tracker"] = manifest["issue_tracker"]
+    vendored["version"] = ref
+    head = {k: vendored.pop(k) for k in ("domain", "name")}
+    (dest / "manifest.json").write_text(
+        json.dumps({**head, **dict(sorted(vendored.items()))}, indent=2) + "\n"
+    )
+    print(f"vendored {DOMAIN} from Home Assistant {ref}")
+
+
+if __name__ == "__main__":
+    main()
