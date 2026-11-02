@@ -14,12 +14,12 @@
   "dependencies": [
     "bluetooth_adapters"
   ],
-  "documentation": "https://www.home-assistant.io/integrations/yalexs_ble",
+  "documentation": "https://github.com/Yale-Libs/ha-yalexs-ble",
   "integration_type": "device",
   "iot_class": "local_push",
   "issue_tracker": "https://github.com/Yale-Libs/ha-yalexs-ble/issues",
   "requirements": [
-    "yalexs-ble==4.0.1"
+    "yalexs-ble>=4.0.1"
   ],
   "version": "2026.10.4"
 }

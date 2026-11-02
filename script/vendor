@@ -34,7 +34,13 @@ def main() -> None:
     shutil.rmtree(dest)
     shutil.copytree(src, dest, ignore=shutil.ignore_patterns("__pycache__"))
     vendored = json.loads((dest / "manifest.json").read_text())
+    # hassfest's rules for a custom integration: its own documentation URL, and
+    # no exact pin of a package Home Assistant itself depends on.
+    vendored["documentation"] = manifest["documentation"]
     vendored["issue_tracker"] = manifest["issue_tracker"]
+    vendored["requirements"] = [
+        r.replace("==", ">=", 1) for r in vendored.get("requirements", [])
+    ]
     vendored["version"] = ref
     head = {k: vendored.pop(k) for k in ("domain", "name")}
     (dest / "manifest.json").write_text(
