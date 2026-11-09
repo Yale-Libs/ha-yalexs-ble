@@ -2,13 +2,13 @@
 
 from typing import override
 
-from yalexs_ble import ConnectionInfo, LockInfo, LockState
-
 from homeassistant.components import bluetooth
 from homeassistant.core import callback
 from homeassistant.helpers import device_registry as dr
 from homeassistant.helpers.device_registry import DeviceInfo
 from homeassistant.helpers.entity import Entity
+
+from yalexs_ble import ConnectionInfo, LockInfo, LockState
 
 from .const import DOMAIN
 from .models import YaleXSBLEData

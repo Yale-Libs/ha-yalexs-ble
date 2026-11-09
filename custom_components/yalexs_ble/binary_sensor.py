@@ -2,14 +2,14 @@
 
 from typing import override
 
-from yalexs_ble import ConnectionInfo, DoorStatus, LockInfo, LockState
-
 from homeassistant.components.binary_sensor import (
     BinarySensorDeviceClass,
     BinarySensorEntity,
 )
 from homeassistant.core import HomeAssistant, callback
 from homeassistant.helpers.entity_platform import AddConfigEntryEntitiesCallback
+
+from yalexs_ble import ConnectionInfo, DoorStatus, LockInfo, LockState
 
 from . import YALEXSBLEConfigEntry
 from .entity import YALEXSBLEEntity

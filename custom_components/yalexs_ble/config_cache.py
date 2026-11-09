@@ -1,9 +1,9 @@
 """The Yale Access Bluetooth integration."""
 
-from yalexs_ble import ValidatedLockConfig
-
 from homeassistant.core import HomeAssistant, callback
 from homeassistant.util.hass_dict import HassKey
+
+from yalexs_ble import ValidatedLockConfig
 
 CONFIG_CACHE: HassKey[dict[str, ValidatedLockConfig]] = HassKey(
     "yalexs_ble_config_cache"
