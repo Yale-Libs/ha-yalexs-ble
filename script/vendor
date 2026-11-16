@@ -25,7 +25,14 @@ def main() -> None:
     ref = sys.argv[2] if len(sys.argv) > 2 else manifest["version"]
     subprocess.run(["git", "-C", str(ha), "checkout", "-q", ref], check=True)
     subprocess.run(
-        [sys.executable, "-m", "script.translations", "develop", "--integration", DOMAIN],
+        [
+            sys.executable,
+            "-m",
+            "script.translations",
+            "develop",
+            "--integration",
+            DOMAIN,
+        ],
         cwd=ha,
         check=True,
     )

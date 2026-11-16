@@ -2,11 +2,11 @@
 
 from typing import Any, override
 
-from yalexs_ble import ConnectionInfo, LockInfo, LockState, LockStatus
-
 from homeassistant.components.lock import LockEntity
 from homeassistant.core import HomeAssistant, callback
 from homeassistant.helpers.entity_platform import AddConfigEntryEntitiesCallback
+
+from yalexs_ble import ConnectionInfo, LockInfo, LockState, LockStatus
 
 from . import YALEXSBLEConfigEntry
 from .entity import YALEXSBLEEntity
