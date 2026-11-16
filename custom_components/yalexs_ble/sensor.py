@@ -4,8 +4,6 @@ from collections.abc import Callable
 from dataclasses import dataclass
 from typing import override
 
-from yalexs_ble import ConnectionInfo, LockInfo, LockState
-
 from homeassistant.components.sensor import (
     SensorDeviceClass,
     SensorEntity,
@@ -20,6 +18,8 @@ from homeassistant.const import (
 )
 from homeassistant.core import HomeAssistant, callback
 from homeassistant.helpers.entity_platform import AddConfigEntryEntitiesCallback
+
+from yalexs_ble import ConnectionInfo, LockInfo, LockState
 
 from . import YALEXSBLEConfigEntry
 from .entity import YALEXSBLEEntity

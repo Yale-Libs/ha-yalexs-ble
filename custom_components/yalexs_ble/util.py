@@ -2,8 +2,6 @@
 
 import platform
 
-from yalexs_ble import local_name_is_unique
-
 from homeassistant.components.bluetooth import (
     BluetoothServiceInfoBleak,
     async_discovered_service_info,
@@ -14,6 +12,8 @@ from homeassistant.components.bluetooth.match import (
     BluetoothCallbackMatcher,
 )
 from homeassistant.core import HomeAssistant, callback
+
+from yalexs_ble import local_name_is_unique
 
 
 def bluetooth_callback_matcher(
